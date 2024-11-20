@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="La casa di Sayre">
+	<meta name="keywords" content="videogioco, single player">
+	<meta name="author" content="Daniele Schiavoni">
+	<meta name="robots" content="index, follow">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Jacquard+12&family=MedievalSharp&display=swap"
+		rel="stylesheet">
+	<style>
+		body {
+			color: black;
+			font-family: "Jacquard 12", system-ui;
+			font-weight: 600;
+			font-style: normal;
+			background-repeat: no-repeat;
+			background-size: 100vw;
+			background-attachment: scroll;
+			background-color: #4B2E24;
+			width: 100vw;
+		}
+
+		#background-img {
+			width: 100vw;
+		}
+
+		.grid-container {
+
+			left: 0;
+			height: 18vh;
+			display: grid;
+			position: fixed;
+			grid-template-columns: repeat(4, 1fr);
+			grid-gap: 2vh;
+		}
+
+		.grid-item {
+			height: 6vh;
+			width: 20vw;
+			text-align: center;
+		}
+
+		#coins-div {
+			grid-column: 1;
+			grid-row: 1;
+			background-image: linear-gradient(to right, #FFD700 0%, #FFD700 50%, transparent 100%);
+		}
+
+		#happiness-div {
+			grid-column: 1;
+			grid-row: 2;
+			left: 0;
+			background-image: linear-gradient(to right, #BAEDA9 0%, #BAEDA9 50%, transparent 100%);
+		}
+
+		#time-left-div {
+			grid-column: 5;
+			grid-row: 1;
+			background-image: linear-gradient(to left, #331e1e 0%, #331e1e 50%, transparent 100%);
+			color: white;
+
+		}
+
+		#saved-monsters-div {
+			grid-column: 5;
+			grid-row: 2;
+			background-image: linear-gradient(to left, #8B0000 0%, #8B0000 50%, transparent 100%);
+			color: white;
+		}
+
+		.button {
+			height: 3vw;
+			min-height: 30px;
+			width: 7vw;
+			min-width: 90px;
+			background-color: rgba(220, 220, 220, 0.6);
+			font-size: 2vw;
+			font-family: "Jacquard 12", system-ui;
+			font-weight: 600;
+			font-style: normal;
+			color: #414a4c;
+			border-style: dashed;
+			border-color: #778899;
+			border-radius: 4px;
+			margin-bottom: 1vw;
+			;
+
+		}
+
+		#shop-div {
+			margin-top: 10px;
+			margin-left: 9vw;
+			align-self: center;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-rows: repeat(3, 1fr);
+			column-gap: 1vw;
+			row-gap: 1vh;
+		}
+
+		.shop-item {
+			width: 25vw;
+			background-color: #4e3b31;
+			border: solid 5px #333333;
+			border-radius: 5px;
+			text-align: center;
+			margin-bottom: 3vh;
+			color: white;
+			text-shadow: 2px 2px black;
+		}
+
+		.shop-img {
+			align-self: center;
+			width: 20vw;
+			border: solid 3px;
+			border-radius: 50%;
+		}
+
+		.lvl-one {
+			border-color: green
+		}
+
+		.lvl-two {
+			border-color: gold
+		}
+
+		.lvl-three {
+			border-color: purple
+		}
+
+		#weapon-one {
+			grid-column: 1;
+			grid-row: 1;
+		}
+
+		#weapon-two {
+			grid-column: 2;
+			grid-row: 1;
+		}
+
+		#weapon-three {
+			grid-column: 3;
+			grid-row: 1;
+		}
+
+		#book-one {
+			grid-column: 1;
+			grid-row: 2;
+		}
+
+		#book-two {
+			grid-column: 2;
+			grid-row: 2;
+		}
+
+		#book-three {
+			grid-column: 3;
+			grid-row: 2;
+		}
+
+		#scepter-one {
+			grid-column: 1;
+			grid-row: 3;
+		}
+
+		#scepter-two {
+			grid-column: 2;
+			grid-row: 3;
+		}
+
+		#scepter-three {
+			grid-column: 3;
+			grid-row: 3;
+		}
+
+		#text-div {
+			background-color: rgba(255, 255, 255, 0.4);
+			text-align: center;
+			border-bottom: solid 4px black;
+			border-top: solid 4px black;
+			height: 12vh;
+
+		}
+
+		#go-back {
+			height: 4vw;
+			min-height: 30px;
+			width: 10vw;
+			min-width: 90px;
+			font-size: 1vw;
+			background-color: rgba(187, 165, 81, 0.6);
+			border-color: rgb(187, 165, 81);
+			position: fixed;
+			top: 82vh;
+			left: 5vw;
+			color: gold;
+			text-shadow: 2px 2px black;
+		}
+
+
+		@media (max-width: 600px) {
+			body {
+				font-size: 15px;
+
+
+			}
+
+			.button {
+				font-size: 2vw;
+			}
+
+			#shop-div {
+				display: block;
+
+			}
+
+			.shop-item {
+				margin-left: 30%;
+			}
+
+		}
+	</style>
+	<title>Despite Everything, It's Still You - Negozio</title>
+</head>
+
+<body>
+	<div class="grid-container" id="upper-div">
+		<div class="grid-item" id="coins-div">
+			<p>
+				Soldi:
+				<span id="coins"></span>
+			</p>
+		</div>
+		<div class="grid-item" id="happiness-div">
+			<p>
+				Felicità:
+				<span id="happiness"></span>
+			</p>
+		</div>
+		<div class="grid-item" id="time-left-div">
+			<p>
+				Tempo rimasto:
+				<span id="time-left"></span>
+			</p>
+		</div>
+		<div class="grid-item" id="saved-monsters-div">
+			<p>
+				Mostri salvati:
+				<span id="saved-monsters"></span>
+				/100
+			</p>
+		</div>
+	</div>
+
+	<img id="background-img" src="img/shop.png" alt="shop keeper">
+	<div id="text-div">
+		<h4>La negoziante ti guarda torvamente, aspettando che tu le dica di cosa hai bisogno</h4>
+		<p id="shop-message" style="font-size:3vw"></p>
+	</div>
+	<div id="shop-div">
+		<div id="weapon-one" class="shop-item weapon lvl-one">
+			<img class="shop-img" src="img/lvl1weapon.png">
+			<p>Nome: <span id="weapon-one-name"></span></p>
+			<p>Resistenza: <span id="weapon-one-durability"></span></p>
+			<p>Prezzo: <span id="weapon-one-price"></span> monete</p>
+			<form method="post">
+				<button class="button" id="weapon-one-btn" type="submit" name="sell" value="w1">Compra</button>
+			</form>
+		</div>
+		<div id="weapon-two" class="shop-item weapon lvl-two">
+			<img class="shop-img" src="img/lvl2weapon.png">
+			<p>Nome: <span id="weapon-two-name"></span></p>
+			<p>Resistenza: <span id="weapon-two-durability"></span></p>
+			<p>Prezzo: <span id="weapon-two-price"></span> monete</p>
+			<form method="post">
+				<button class="button" id="weapon-two-btn" type="submit" name="sell" value="w2">Compra</button>
+			</form>
+		</div>
+		<div id="weapon-three" class="shop-item weapon lvl-three">
+			<img class="shop-img" src="img/lvl3weapon.png">
+			<p>Nome: <span id="weapon-three-name"></span></p>
+			<p>Resistenza: <span id="weapon-three-durability"></span></p>
+			<p>Prezzo: <span id="weapon-three-price"></span> monete</p>
+			<form method="post">
+				<button class="button" id="weapon-three-btn" type="submit" name="sell" value="w3">Compra</button>
+			</form>
+		</div>
+		<div id="book-one" class="shop-item book lvl-one">
+			<img class="shop-img" src="img/lvl1book.png">
+			<p>Nome: <span id="book-one-name"></span></p>
+			<p>Tempo per la conversione: <span id="book-one-conversion"></span> minuti</p>
+			<p>Prezzo: <span id="book-one-price"></span> monete</p>
+			<form method="post">
+				<button class="button" id="book-one-btn" type="submit" name="sell" value="b1">Compra</button>
+			</form>
+
+		</div>
+		<div id="book-two" class="shop-item book lvl-two">
+			<img class="shop-img" src="img/lvl2book.png">
+			<p>Nome: <span id="book-two-name"></span></p>
+			<p>Tempo per la conversione: <span id="book-two-conversion"></span> minuti</p>
+			<p>Prezzo: <span id="book-two-price"></span> monete</p>
+			<form method="post">
+				<button class="button" id="book-two-btn" type="submit" name="sell" value="b2">Compra</button>
+			</form>
+		</div>
+		<div id="book-three" class="shop-item book lvl-three">
+			<img class="shop-img" src="img/lvl3book.png">
+			<p>Nome: <span id="book-three-name"></span></p>
+			<p>Tempo per la conversione: <span id="book-three-conversion"></span> minuti</p>
+			<p>Prezzo: <span id="book-three-price"></span> monete</p>
+			<form method="post">
+				<button class="button" id="book-three-btn" type="submit" name="sell" value="b3">Compra</button>
+			</form>
+		</div>
+		<div id="scepter-one" class="shop-item scepter lvl-one">
+			<img class="shop-img" src="img/lvl1scepter.png">
+			<p>Nome: <span id="scepter-one-name"></span></p>
+			<p>Potere magico: <span id="scepter-one-conversion"></span></p>
+			<p>Prezzo: <span id="scepter-one-price"></span> monete</p>
+			<form method="post">
+				<button class="button" id="scepter-one-btn" type="submit" name="sell" value="s1">Compra</button>
+			</form>
+		</div>
+		<div id="scepter-two" class="shop-item scepter lvl-two">
+			<img class="shop-img" src="img/lvl2scepter.png">
+			<p>Nome: <span id="scepter-two-name"></span></p>
+			<p>Potere magico: <span id="scepter-two-conversion"></span></p>
+			<p>Prezzo: <span id="scepter-two-price"></span> monete</p>
+			<form method="post">
+				<button class="button" id="scepter-two-btn" type="submit" name="sell" value="s2">Compra</button>
+			</form>
+		</div>
+		<div id="scepter-three" class="shop-item scepter lvl-three">
+			<img class="shop-img" src="img/lvl3scepter.png">
+			<p>Nome: <span id="scepter-three-name"></span></p>
+			<p>Potere magico: <span id="scepter-three-conversion"></span></p>
+			<p>Prezzo: <span id="scepter-three-price"></span> monete</p>
+			<form method="post">
+				<button class="button" id="scepter-three-btn" type="submit" name="sell" value="s3">Compra</button>
+			</form>
+		</div>
+
+	</div>
+	<button class="button" id="go-back" onclick="redirect('city')">Torna indietro</button>
+	<script>
+		function redirect(location) {
+			window.location.href = "http://localhost:8080/" + location;
+		}
+	</script>
+	<script id="shop-script">
+		
+	</script>
+</body>
+
+</html>
